@@ -1,0 +1,56 @@
+CREATE DATABASE Pclinics;
+GO
+
+USE Pclinics;
+GO
+
+CREATE TABLE clinica (
+	IdClinica TINYINT PRIMARY KEY IDENTITY (1,1),
+	end_clinica VARCHAR(100),
+);
+GO
+
+CREATE TABLE veterinario (
+	IdVeterinario TINYINT PRIMARY KEY IDENTITY (1,1),
+	IdClinica TINYINT FOREIGN KEY REFERENCES clinica (IdClinica),
+	nomeVet VARCHAR(100), 
+);
+GO
+
+CREATE TABLE tipoPet (
+	IdTipoPet TINYINT PRIMARY KEY IDENTITY (1,1),
+	nomeTipo VARCHAR(50),
+);
+GO
+
+CREATE TABLE raca (
+	IdRaca TINYINT PRIMARY KEY IDENTITY (1,1),
+	IdTipoPet TINYINT FOREIGN KEY REFERENCES tipoPet (IdTipoPet),
+	nomeRaca VARCHAR(50),
+);
+GO
+
+CREATE TABLE dono (
+	IdDono TINYINT PRIMARY KEY IDENTITY (1,1),
+	nomeDono VARCHAR(100) NOT NULL,
+	cpfDono CHAR(11) UNIQUE NOT NULL,
+);
+GO
+
+CREATE TABLE pet (
+	IdPet SMALLINT PRIMARY KEY IDENTITY (1,1),
+	IdRaca TINYINT FOREIGN KEY REFERENCES raca (IdRaca),
+	IdDono TINYINT FOREIGN KEY REFERENCES dono (IdDono),
+	nomePet VARCHAR(50),
+	dataNasc DATE,
+);
+GO
+
+CREATE TABLE atendimento (
+	IdAtendimento INT PRIMARY KEY IDENTITY (1,1),
+	IdVeterinario TINYINT FOREIGN KEY REFERENCES veterinario (IdVeterinario),
+	IdPet SMALLINT FOREIGN KEY REFERENCES pet (IdPet),
+	dataAtendimento DATETIME,
+	descricao TEXT,
+);
+GO
