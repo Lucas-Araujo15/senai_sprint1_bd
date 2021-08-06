@@ -54,3 +54,6 @@ CREATE TABLE atendimento (
 	descricao TEXT,
 );
 GO
+
+ALTER TABLE veterinario ADD CRMV VARCHAR(10);
+ALTER TABLE clinica ADD RazaoSocial VARCHAR (50);
